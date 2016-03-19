@@ -1,22 +1,40 @@
 require('normalize.css');
 require('styles/App.css');
 
+import $ from 'jquery';
 import React from 'react';
+import ReactCss from 'reactcss';
+import Channel from './Channel';
+import ChannelList from './ChannelList';
 
-let yeomanImage = require('../images/yeoman.png');
+import { flex } from '../styles/';
 
-class AppComponent extends React.Component {
+export default class AppComponent extends ReactCss.Component {
+  classes() {
+    return {
+      'default': {
+        flex: Object.assign({ height: '100vh' }, flex)
+      }
+    };
+  }
+
+  constructor(props) {
+    super(props);
+    this.defaultProps = {
+    }
+  }
+
+  componentWillMount() {
+    $.get('//192.168.2.99:80/api/messages/a/a/a');
+  }
+
   render() {
+    const session = {};
     return (
-      <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator" />
-        <div className="notice">Please edit <code>src/components/Main.js</code> to get started!</div>
+      <div is="flex">
+        <ChannelList />
+        <Channel session={session} />
       </div>
     );
   }
 }
-
-AppComponent.defaultProps = {
-};
-
-export default AppComponent;

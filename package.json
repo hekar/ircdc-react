@@ -1,7 +1,7 @@
 {
-  "name": "react-webpack-template",
-  "version": "1.5.1",
-  "description": "A base skeleton template for react and webpack without task runners",
+  "name": "ircdc-react",
+  "version": "1.0.0",
+  "description": "Reactjs based frontend for IRCDC",
   "main": "server.js",
   "scripts": {
     "start": "node server.js --env=dev",
@@ -20,21 +20,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://weblogixx@github.com/weblogixx/react-webpack-template.git"
+    "url": "git@github.com:hekar/ircdc-react.git"
   },
   "keywords": [
-    "React",
-    "Webpack",
-    "Babel",
-    "Boilerplate",
-    "Demo"
+    "react",
+    "webpack",
+    "babel",
+    "irc"
   ],
-  "author": "Christian Schilling (cs@weblogixx.de)",
+  "author": "Hekar Khani",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/weblogixx/react-webpack-template/issues"
+    "url": "https://github.com/hekar/ircdc-react/issues"
   },
-  "homepage": "https://github.com/weblogixx/react-webpack-template#readme",
+  "homepage": "https://github.com/hekar/ircdc-react",
   "devDependencies": {
     "babel-core": "^6.0.0",
     "babel-eslint": "^5.0.0",

@@ -1,6 +1,8 @@
 'use strict';
 
 const SockJS = require('sockjs-client');
+const alt = require('./alt');
+const NotificationActions = require('../actions/NotificationActions');
 
 const listeners = {};
 let sock = undefined;
@@ -22,7 +24,15 @@ function connect(url) {
   };
 
   sock.onmessage = function(e) {
-    fire('message', e.data);
+    const message = e.data;
+    fire('message', message);
+
+    const { type, payload } = message;
+    const data = {
+      type,
+      payload
+    };
+    alt.dispatch(NotificationActions.INCOMING, data);
   };
 
   sock.onclose = function() {
@@ -30,7 +40,9 @@ function connect(url) {
   };
 }
 
-const send = sock.send;
+function send() {
+  sock.send.apply(this, arguments);
+}
 
 function disconnect() {
   sock.close();
@@ -57,7 +69,7 @@ function listen(type, callback) {
 }
 
 function fire(type, data) {
-  debugger;
+  console.log('sock message received', arguments)
   if (listeners[type]) {
     listeners.forEach((listener) => listener(data));
   }

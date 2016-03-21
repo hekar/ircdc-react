@@ -2,14 +2,25 @@
 
 /*global ace */
 
+import connectToStores from 'alt-utils/lib/connectToStores';
 import React from 'react';
 import { Component } from 'reactcss';
 import ReactDom from 'react-dom';
+import LogStore from '../stores/LogStore';
 
 /**
  * Chat Log
  */
+@connectToStores
 export default class Log extends Component {
+  static getStores() {
+    return [LogStore];
+  }
+
+  static getPropsFromStores() {
+    return LogStore.getState();
+  }
+
   classes() {
     return {
       'default': {

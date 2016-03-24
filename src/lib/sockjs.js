@@ -10,9 +10,9 @@ let sock = undefined;
 function bootstrap(url) {
   if (url) {
     try {
-        connect(url);
+      connect(url);
     } catch (e) {
-      console.error(e);
+      debugger;
     }
   }
 }
@@ -32,6 +32,7 @@ function connect(url) {
       type,
       payload
     };
+    debugger;
     alt.dispatch(NotificationActions.INCOMING, data);
   };
 

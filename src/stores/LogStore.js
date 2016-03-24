@@ -1,32 +1,39 @@
 'use strict';
 
 const alt = require('../lib/alt');
-const LogActions = require('../actions/LogActions');
-const NotificationActions = require('../actions/NotificationActions');
 
 class LogStore {
   constructor() {
-    this.messages = [];
+    this.bindAction(
+      'NotificationActions.incoming',
+      this.handleIncomingNotification
+    );
 
-    this.bindListeners({
-      incomingNotification: NotificationActions.INCOMING,
-      handleIncomingMessages: LogActions.INCOMING_MESSAGE
-    });
+    this.bindAction(
+      'LogActions.incomingMessage',
+      this.handleIncomingMessages
+    );
+
+    this.state = {
+      messages: []
+    };
   }
 
-  incomingNotification(data) {
-    debugger;
-    switch (data.type) {
-      case 'log':
-        const message = data.payload.message;
-        this.messages.push(message);
-        break;
+  handleIncomingNotification(data) {
+    if (data.type === 'log') {
+      const message = data.payload.message;
+
+      const messages = this.state.messages;
+      this.messages.concat([message]);
+      this.setState({ messages });
     }
   }
 
-  handleIncomingMessages(messages) {
-    messages.forEach((message) => this.messages.push(message));
+  handleIncomingMessages(newMessages) {
+    const messages = this.state.messages;
+    this.messages.concat(newMessages);
+    this.setState({ messages });
   }
 }
 
-module.exports = alt.createStore(LogStore, 'LogStore');
+export default alt.createStore(LogStore, 'LogStore');

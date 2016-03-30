@@ -2,7 +2,6 @@
 
 const SockJS = require('sockjs-client');
 const alt = require('./alt');
-const NotificationActions = require('../actions/NotificationActions');
 
 const listeners = {};
 let sock = undefined;
@@ -24,16 +23,11 @@ function connect(url) {
   };
 
   sock.onmessage = function(e) {
-    const message = e.data;
+    const message = JSON.parse(e.data);
     fire('message', message);
 
-    const { type, payload } = message;
-    const data = {
-      type,
-      payload
-    };
     debugger;
-    alt.dispatch(NotificationActions.INCOMING, data);
+    alt.dispatch('NotificationActions.incoming', message);
   };
 
   sock.onclose = function() {

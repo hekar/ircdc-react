@@ -25,8 +25,6 @@ function connect(url) {
   sock.onmessage = function(e) {
     const message = JSON.parse(e.data);
     fire('message', message);
-
-    debugger;
     alt.dispatch('NotificationActions.incoming', message);
   };
 

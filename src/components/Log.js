@@ -11,14 +11,15 @@ import LogStore from '../stores/LogStore';
 /**
  * Chat Log
  */
-@connectToStores
-export default class Log extends Component {
+class Log extends Component {
   static getStores() {
     return [LogStore];
   }
 
   static getPropsFromStores() {
-    return LogStore.getState();
+    return {
+      log: LogStore.getState()
+    };
   }
 
   classes() {
@@ -43,17 +44,30 @@ export default class Log extends Component {
     const editor = ace.edit(node);
     editor.setTheme('ace/theme/monokai');
     editor.setReadOnly(true);
-    //editor.getSession().setMode('ace/mode/javascript');
 
     const renderer = editor.renderer;
     renderer.setShowGutter(false);
     renderer.setPrintMarginColumn(false);
-    this.setState({ editor })
+
+    const session = editor.getSession();
+    const document = session.getDocument();
+
+    this.setState({ editor, document })
   }
 
   render() {
+    const log = this.props.log;
+    const editorDoc = this.state.document;
+    if (log && editorDoc) {
+      const messages = log.messages;
+      const fullMessageLog = messages.join('\n');
+      editorDoc.setValue(fullMessageLog);
+    }
+
     return (
       <div is="box"></div>
     );
   }
 }
+
+export default connectToStores(Log);

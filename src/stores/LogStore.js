@@ -21,9 +21,10 @@ class LogStore {
 
   handleIncomingNotification(data) {
     if (data.type) {
-      const message = data.payload.message;
+      const message = data.payload;
+      const newMessages = this.state.messages.concat([message]);
       this.setState({
-        messages: this.state.messages.concat([message])
+        messages: newMessages
       });
     }
   }

@@ -4,6 +4,7 @@ import $ from 'jquery';
 import React from 'react';
 import { Component } from 'reactcss';
 import ReactDom from 'react-dom';
+import { say } from '../actions/SayActions';
 
 import { flex } from '../styles/';
 
@@ -45,9 +46,20 @@ export default class Say extends Component {
       const enter = 13;
       const escape = 27;
       if (e.which === enter) {
+        const message = '';
+        this.say(message);
       } else if (e.which === escape) {
       }
     })
+  }
+
+  say(message) {
+    const currentUser = {
+      userId: 'bam',
+      token: 'jam'
+    };
+    say(currentUser,
+      'other', message);
   }
 
   render() {

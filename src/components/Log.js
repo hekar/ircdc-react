@@ -60,7 +60,12 @@ class Log extends Component {
     const editorDoc = this.state.document;
     if (log && editorDoc) {
       const messages = log.messages;
-      const fullMessageLog = messages.join('\n');
+      let i = 0;
+      const fullMessageLog = messages
+        .map(m => {
+          return `${++i}. ${JSON.stringify(m, null, 2)}`;
+        })
+        .join('\n');
       editorDoc.setValue(fullMessageLog);
     }
 

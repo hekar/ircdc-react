@@ -25,7 +25,7 @@ export default class AppComponent extends ReactCss.Component {
   }
 
   componentWillMount() {
-    $.get('//192.168.2.99:80/api/messages/a/a/a');
+    $.get('//localhost:5001/api/messages/a/a/a');
   }
 
   render() {

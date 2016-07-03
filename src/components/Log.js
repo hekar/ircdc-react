@@ -2,14 +2,26 @@
 
 /*global ace */
 
+import connectToStores from 'alt-utils/lib/connectToStores';
 import React from 'react';
 import { Component } from 'reactcss';
 import ReactDom from 'react-dom';
+import LogStore from '../stores/LogStore';
 
 /**
  * Chat Log
  */
-export default class Log extends Component {
+class Log extends Component {
+  static getStores() {
+    return [LogStore];
+  }
+
+  static getPropsFromStores() {
+    return {
+      log: LogStore.getState()
+    };
+  }
+
   classes() {
     return {
       'default': {
@@ -32,17 +44,35 @@ export default class Log extends Component {
     const editor = ace.edit(node);
     editor.setTheme('ace/theme/monokai');
     editor.setReadOnly(true);
-    //editor.getSession().setMode('ace/mode/javascript');
 
     const renderer = editor.renderer;
     renderer.setShowGutter(false);
     renderer.setPrintMarginColumn(false);
-    this.setState({ editor })
+
+    const session = editor.getSession();
+    const document = session.getDocument();
+
+    this.setState({ editor, document })
   }
 
   render() {
+    const log = this.props.log;
+    const editorDoc = this.state.document;
+    if (log && editorDoc) {
+      const messages = log.messages;
+      let i = 0;
+      const fullMessageLog = messages
+        .map(m => {
+          return `${++i}. ${JSON.stringify(m, null, 2)}`;
+        })
+        .join('\n');
+      editorDoc.setValue(fullMessageLog);
+    }
+
     return (
       <div is="box"></div>
     );
   }
 }
+
+export default connectToStores(Log);

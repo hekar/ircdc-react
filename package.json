@@ -69,17 +69,22 @@
     "react-map-styles": "^0.3.0",
     "rimraf": "^2.4.3",
     "style-loader": "^0.13.0",
+    "supertest": "^1.2.0",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.0",
     "webpack-dev-server": "^1.12.0"
   },
   "dependencies": {
     "alt": "^0.18.2",
+    "alt-utils": "^1.0.0",
+    "babel-preset-stage-0": "^6.5.0",
     "core-js": "^2.0.0",
     "jquery": "^2.2.2",
     "normalize.css": "^3.0.3",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "reactcss": "^0.4.5"
+    "reactcss": "^0.4.5",
+    "sockjs-client": "^1.0.3",
+    "superagent": "^1.8.3"
   }
 }

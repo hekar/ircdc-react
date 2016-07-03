@@ -7,6 +7,7 @@ class LogActions {
     // TODO: Clear, archive, scrollback, etc
     this.generateActions('incomingMessage');
   }
+
 }
 
 export default alt.createActions(LogActions);
